@@ -1,0 +1,36 @@
+{
+  "name": "merneshop",
+  "version": "1.0.0",
+  "description": "MERN shopping app",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node backend/server",
+    "server": "nodemon backend/server",
+    "client": "npm start --prefix frontend",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "data:import": "node backend/seeder",
+    "data:destroy": "node backend/seeder -d"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amadeusfi/mern-shop.git"
+  },
+  "author": "Amadeus Figueiredo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/amadeusfi/mern-shop/issues"
+  },
+  "homepage": "https://github.com/amadeusfi/mern-shop#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "colors": "^1.4.0",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "mongoose": "^6.0.5"
+  },
+  "devDependencies": {
+    "concurrently": "^6.2.1",
+    "nodemon": "^2.0.12"
+  }
+}
