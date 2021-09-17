@@ -20,8 +20,8 @@ const cartItemsFromStorage = localStorage.getItem('cartItems')
   : []
 
 // check if userInfo is in storege: if nothing is there return null
-const userInfoFromStorage = localStorage.getItem('cartItems')
-  ? JSON.parse(localStorage.getItem('cart'))
+const userInfoFromStorage = localStorage.getItem('userInfo')
+  ? JSON.parse(localStorage.getItem('userInfo'))
   : null
 
 const initialState = {
