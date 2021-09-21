@@ -10,6 +10,9 @@ import {
   USER_REGISTER_FAIL,
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
+  USER_UPDATE_PROFILE_FAIL,
+  USER_UPDATE_PROFILE_REQUEST,
+  USER_UPDATE_PROFILE_SUCCESS,
 } from '../constants/userConstants'
 
 // Login actions makes request to login and get the token
@@ -91,8 +94,8 @@ export const register = (name, email, password) => async (dispatch) => {
     })
   }
 }
-
-const getUserDetails = (id) => async (dispatch, getState) => {
+//User Details
+export const getUserDetails = (id) => async (dispatch, getState) => {
   try {
     dispatch({
       type: USER_DETAILS_REQUEST,
@@ -121,6 +124,41 @@ const getUserDetails = (id) => async (dispatch, getState) => {
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
+          : error.message,
+    })
+  }
+}
+
+// Update User Profile
+export const updateUserProfile = (user) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: USER_UPDATE_PROFILE_REQUEST,
+    })
+
+    const {
+      userLogin: { userInfo },
+    } = getState()
+    // get token and add to the header
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+    // make request to the backend
+    const { data } = await axios.put(`/api/users/profile`, user, config)
+    // if successful send the state and show message
+    dispatch({
+      type: USER_UPDATE_PROFILE_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    dispatch({
+      type: USER_UPDATE_PROFILE_FAIL,
+      payload:
+        error.response && error.response.date.message
+          ? error.message.data.message
           : error.message,
     })
   }
