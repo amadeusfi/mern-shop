@@ -64,7 +64,7 @@ export const register = (name, email, password) => async (dispatch) => {
       type: USER_REGISTER_REQUEST,
     })
     const config = {
-      hearders: {
+      headers: {
         'Content-Type': 'application/json',
       },
     }
