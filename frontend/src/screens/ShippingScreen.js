@@ -1,23 +1,34 @@
 import React, { useState } from 'react'
-import {Form, Button, FormGroup, FormLabel} from "react-bootstrap"
+import {Form, Button, FormLabel} from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux";
-import Message from "../components/Message";
-import Loader from "../components/Loader";
+import {saveShippingAddress} from "../actions/cartActions";
+import CheckoutSteps from "../components/CheckoutSteps";
 import FormContainer from "../components/FormContainer";
 
 const ShippingScreen = ({ history }) => {
-    const [address, setAddress] = useState('')
-    const [city, setCity] = useState('')
-    const [postalCode, setPostalCode] = useState('')
-    const [country, setCountry] = useState('')
+
+    const cart = useSelector(state => state.cart)
+
+    const {shippingAddress } = cart
+    const [address, setAddress] = useState(shippingAddress.address)
+    const [city, setCity] = useState(shippingAddress.city)
+    const [postalCode, setPostalCode] = useState(shippingAddress.postalCode)
+    const [country, setCountry] = useState(shippingAddress.country)
+
+    const dispatch = useDispatch()
 
     const submitHandler = (e) => {
         e.preventDefault()
+        //this data is coming from the form
+        dispatch(saveShippingAddress({ address, city, postalCode, country}))
+        //go to next page ({ history }) allow it
+        history.push('payment')
         console.log('submit')
     }
 
     return (
         <FormContainer>
+            <CheckoutSteps step1 step2 />
             <h1>Shipping</h1>
             <Form onSubmit={submitHandler}>
                 <Form.Group controlId='address'>
