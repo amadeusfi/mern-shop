@@ -4,9 +4,11 @@ import {useDispatch, useSelector} from "react-redux";
 import Message from '../components/Message'
 import CheckoutSteps from "../components/CheckoutSteps";
 import {Link} from "react-router-dom";
+import { createOrder} from "../actions/orderActions";
 
 
 const PlaceOrderScreen = () => {
+    const dispatch = useDispatch()
     // to get 2 decimal numbers always
     const addDecimals = (num) => {
         return (Math.round(num * 100) / 100).toFixed(2)
